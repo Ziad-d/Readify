@@ -19,6 +19,6 @@ namespace CodingWiki_Model.Models
         public int BookId { get; set; }
 
         // Navigation Property
-        public Fluent_Book Book { get; set; }
+        public virtual Fluent_Book Book { get; set; }
     }
 }

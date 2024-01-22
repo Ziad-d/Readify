@@ -16,7 +16,7 @@ namespace CodingWiki_Model.Models
         public int AuthorId { get; set; }
 
         // Navigation Properties
-        public Book Book { get; set; }
-        public Author Author { get; set; }
+        public virtual Book Book { get; set; }
+        public virtual Author Author { get; set; }
     }
 }

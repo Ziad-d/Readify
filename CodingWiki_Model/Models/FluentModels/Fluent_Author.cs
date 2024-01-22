@@ -29,7 +29,7 @@ namespace CodingWiki_Model.Models
         }
 
         //Navigation Properties
-        public List<Fluent_BookAuthorMap> BookAuthorMap { get; set; }
+        public virtual List<Fluent_BookAuthorMap> BookAuthorMap { get; set; }
 
     }
 }

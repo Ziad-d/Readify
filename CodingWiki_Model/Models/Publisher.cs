@@ -15,6 +15,6 @@ namespace CodingWiki_Model.Models
         public string Location { get; set; }
 
         // Navigation Property
-        public List<Book> Books { get; set; }
+        public virtual List<Book> Books { get; set; }
     }
 }

@@ -17,7 +17,9 @@ namespace CodingWiki_Web.Controllers
         }
         public IActionResult Index()
         {
-            List<Book> objList = context.Books.Include(u => u.Publisher).ToList();
+            List<Book> objList = context.Books.Include(u => u.Publisher)
+                .Include(u => u.BookAuthorMap)
+                .ThenInclude(u => u.Author).ToList();
             foreach (var obj in objList)
             {
                 //// less efficient
@@ -27,6 +29,11 @@ namespace CodingWiki_Web.Controllers
                 //// Reference as there is only one publisher for the book(obj)
                 //// Collection if there is more than one
                 //context.Entry(obj).Reference(u => u.Publisher).Load();
+                //context.Entry(obj).Collection(u => u.BookAuthorMap).Load();
+                //foreach(var bookAuth in obj.BookAuthorMap)
+                //{
+                //context.Entry(bookAuth).Reference(u => u.Author).Load();
+                //}
             }
             return View(objList);
         }
@@ -55,17 +62,17 @@ namespace CodingWiki_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Upsert(BookVM obj)
         {
-               if(obj.Book.BookId == 0)
-                {
-                    await context.Books.AddAsync(obj.Book);
-                }
-                else
-                {
-                    context.Books.Update(obj.Book);
-                }
+            if (obj.Book.BookId == 0)
+            {
+                await context.Books.AddAsync(obj.Book);
+            }
+            else
+            {
+                context.Books.Update(obj.Book);
+            }
 
-                await context.SaveChangesAsync();
-                return RedirectToAction("Index");
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Details(int? id)
@@ -104,7 +111,7 @@ namespace CodingWiki_Web.Controllers
 
             obj = context.Books.FirstOrDefault(u => u.BookId == id);
 
-            if(obj == null)
+            if (obj == null)
                 return NotFound();
 
             context.Books.Remove(obj);
@@ -112,6 +119,63 @@ namespace CodingWiki_Web.Controllers
             await context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ManageAuthors(int id)
+        {
+            BookAuthorVM obj = new()
+            {
+                BookAuthorList = context.BookAuthorMaps.Include(u => u.Author).Include(u => u.Book)
+                    .Where(u => u.BookId == id).ToList(),
+                BookAuthor = new()
+                {
+                    BookId = id
+                },
+                Book = context.Books.FirstOrDefault(u => u.BookId == id)
+            };
+
+            List<int> tempListOfAssignedAuthor = obj.BookAuthorList.Select(u => u.AuthorId).ToList();
+
+            //NOT IN clause
+            //get all the authors whos id is not in tempListOfAssignedAuthors
+            var tempList = context.Authors.Where(u => !tempListOfAssignedAuthor.Contains(u.AuthorId)).ToList();
+            obj.AuthorList = tempList.Select(i => new SelectListItem
+            {
+                Text = i.FullName,
+                Value = i.AuthorId.ToString()
+            });
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult ManageAuthors(BookAuthorVM bookAuthorVM)
+        {
+            if(bookAuthorVM.BookAuthor.BookId != 0 && bookAuthorVM.BookAuthor.AuthorId !=0)
+            {
+                context.BookAuthorMaps.Add(bookAuthorVM.BookAuthor);
+                context.SaveChanges();
+            }
+            return RedirectToAction("ManageAuthors", new
+            {
+                @id = bookAuthorVM.BookAuthor.BookId
+            });
+        }
+        
+        [HttpDelete]
+        public IActionResult RemoveAuthors(int authorId, BookAuthorVM bookAuthorVM)
+        {
+            int bookId = bookAuthorVM.Book.BookId;
+            BookAuthorMap bookAuthorMap = context.BookAuthorMaps.FirstOrDefault(
+                u => u.BookId == bookId && u.AuthorId == authorId);
+
+            context.BookAuthorMaps.Remove(bookAuthorMap);
+            context.SaveChanges();
+
+            return RedirectToAction("ManageAuthors", new
+            {
+                @id = bookId
+            });
         }
     }
 }

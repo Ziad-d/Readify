@@ -22,8 +22,8 @@ namespace CodingWiki_Model.Models
         public int PublisherId { get; set; }
 
         // Navigation Property
-        public BookDetail BookDetail { get; set; }
-        public Publisher Publisher { get; set; }
-        public List<BookAuthorMap> BookAuthorMap { get; set; }
+        public virtual BookDetail BookDetail { get; set; }
+        public virtual Publisher Publisher { get; set; }
+        public virtual List<BookAuthorMap> BookAuthorMap { get; set; }
     }
 }

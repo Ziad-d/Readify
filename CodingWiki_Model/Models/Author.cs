@@ -26,7 +26,7 @@ namespace CodingWiki_Model.Models
                 return $"{FirstName} {LastName}";
             }
         }
-        public List<BookAuthorMap> BookAuthorMap { get; set; }
+        public virtual List<BookAuthorMap> BookAuthorMap { get; set; }
 
     }
 }
