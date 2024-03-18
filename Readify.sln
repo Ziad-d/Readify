@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingWiki_Web", "CodingWiki_Web\CodingWiki_Web.csproj", "{D9ED5AB7-05C2-4541-AB9D-9472F1260083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "CodingWiki_Web\Web.csproj", "{D9ED5AB7-05C2-4541-AB9D-9472F1260083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingWiki_DataAccess", "CodingWiki_DataAccess\CodingWiki_DataAccess.csproj", "{DF382FED-6D96-4FF7-BD7E-C5F82022906C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "CodingWiki_DataAccess\DataAccess.csproj", "{DF382FED-6D96-4FF7-BD7E-C5F82022906C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingWiki_Model", "CodingWiki_Model\CodingWiki_Model.csproj", "{DE26DF5E-F26B-4038-809C-C1CD1ABC473C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingWiki_Console", "CodingWiki_Console\CodingWiki_Console.csproj", "{2AC9D5D3-428D-4B46-98DB-8B99DDF4DF92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "CodingWiki_Model\Model.csproj", "{DE26DF5E-F26B-4038-809C-C1CD1ABC473C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{DE26DF5E-F26B-4038-809C-C1CD1ABC473C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE26DF5E-F26B-4038-809C-C1CD1ABC473C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE26DF5E-F26B-4038-809C-C1CD1ABC473C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2AC9D5D3-428D-4B46-98DB-8B99DDF4DF92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2AC9D5D3-428D-4B46-98DB-8B99DDF4DF92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2AC9D5D3-428D-4B46-98DB-8B99DDF4DF92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2AC9D5D3-428D-4B46-98DB-8B99DDF4DF92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
